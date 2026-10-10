@@ -6,6 +6,8 @@
 
 ### Added
 
+- Exported a shared prompt-preset resolution contract on the public `@code-yeongyu/senpi/prompt-presets` subpath: a pure, settings-free `resolvePresetName({ providerID, modelID, name? })` plus `PROMPT_PRESET_MODEL_CASES` and `AUTO_RESOLVED_PRESET_NAMES`, so downstream harnesses can pin model-id-to-preset parity against a single source of truth. The model-id matchers moved into an exported `matchers.ts` that `presets.ts` re-imports; `gpt-5` is a manual-only preset and is intentionally excluded from the auto-resolvable set ([#3074](https://github.com/code-yeongyu/senpi/issues/3074)).
+
 - RPC hosts can opt into their ensure caller's lifetime with `owner: "caller"`. After that process exits or is killed, the supervisor stops an idle host after a short grace instead of leaving the shard resident for the normal idle timeout. Surviving peers and active turns keep running; ownership is preserved across reuse and generation handoff. Unowned hosts require no owner filesystem watcher, watch exhaustion falls back to polling, owner identities are timezone-independent, and brief activity resets the grace window ([#3044](https://github.com/code-yeongyu/senpi/issues/3044)).
 
 ### Changed
